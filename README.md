@@ -5,7 +5,7 @@
 </blockquote>
 
 <p align="center">
-  <img width="200" height="100" src="https://user-images.githubusercontent.com/41811634/67442073-be3cb700-f5d5-11e9-9e74-21c534935230.jpg">
+  <img src="https://user-images.githubusercontent.com/41811634/67442295-96018800-f5d6-11e9-8077-54509ef16f26.png">
 </p>
 
 
