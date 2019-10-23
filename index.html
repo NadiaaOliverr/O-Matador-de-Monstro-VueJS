@@ -30,21 +30,38 @@
             </div>
         </div>
         <div v-if="hasResult" class="panel result">
-            <div v-if="monsterLife == 0" class="win">Você Ganhou!!! :)</div>
+            <div v-if="monsterLife == 0" class="win" v-model="playerLife=100, monsterLife=100">Você Ganhou!!! :)</div>
             <div v-else class="lose">Você perdeu! :(</div>
         </div>
         <div class="panel buttons">
             <template v-if="running">
-                <button class="btn attack">Ataque</button>
-                <button class="btn especial-attack">Ataque Especial</button>
-                <button class="btn heal">Curar</button>
-                <button @click="running = false"
-                class="btn give-up">Desistir</button>
+                <button @click="attack(false)" class="btn attack">Ataque</button>
+                <button @click="attack(true)" class="btn especial-attack">Ataque Especial</button>
+                <button @click="healAndHurt();counter+=1" v-if="counter < 3" class="btn heal">Curar</button>
+                <button v-else class="btn heal">Curar</button>
+                <button @click="running = false; playerLife=100; monsterLife=100, counter=0" class="btn give-up">Desistir</button>
             </template>
-            <button v-else @click="startGame"
-            class="btn new-game">Iniciar Jogo</button>
+            <button v-if="!running" @click="startGame" class="btn new-game">Iniciar Jogo</button>
+            <button v-if="!running" @click="instructions()" class="btn new-game">Instruções</button>
         </div>
-        <div class="panel logs"></div>
+        <div v-if="instructionsControll && !running" class="panel instructions">
+            <div class="panel player">
+                Escolha a melhor estratégia para matar o monstro.
+            </div>
+            <div class="panel player">
+                Você só pode se curar 3X. Tenha um bom jogo!!!
+            </div>
+        </div>
+        <div v-if="logs.length && running" class="panel logs">
+            <ul>
+                <li class="player" v-if="counter>=1">
+                    Você usou {{counter}} vezes a opção curar.
+                </li>
+                <li v-for="log in logs" :class="log.cls" class="log">
+                    {{ log.text }}
+                </li>
+            </ul>
+        </div>
     </div>
     <script src="app.js"></script>
 </body>
